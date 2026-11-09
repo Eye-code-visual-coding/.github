@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Eye code</title>
+  </head>
+  <body>
+ <div class="castle-wrapper" id="castleWrapper">
+  <div class="castle-container" id="castleContainer">
+    <iframe
+      src="https://castle.xyz/d/jex2rOKp059p?embed=true&src=snippet&bg=%23f5a097"
+      title="Castle deck"
+      allow="autoplay; fullscreen">
+    </iframe>
+    <div class="castle-cover"></div>
+  </div>
+</div>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #f5a097;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.castle-wrapper {
+  position: relative;
+  flex: none;
+}
+
+.castle-container {
+  width: 450px;
+  height: 729px;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+  will-change: transform;
+}
+
+.castle-container iframe {
+  width: 450px;
+  height: 779px;
+  border: 0;
+  position: absolute;
+  top: -50px;
+  left: 0;
+}
+
+.castle-cover {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 95px;
+  background: #f5a097;
+  z-index: 10;
+}
+</style>
+
+<script>
+const BASE_W = 450;
+const BASE_H = 729;
+const wrapper = document.getElementById("castleWrapper");
+const container = document.getElementById("castleContainer");
+
+function fitCastle() {
+  const vv = window.visualViewport;
+  const vw = vv ? vv.width : window.innerWidth;
+  const vh = vv ? vv.height : window.innerHeight;
+
+  // Escala al máximo posible hasta tocar el límite de ancho o alto.
+  // El espacio sobrante en el otro eje queda con el color de fondo.
+  const scale = Math.min(vw / BASE_W, vh / BASE_H);
+
+  container.style.transform = `scale(${scale})`;
+  wrapper.style.width = `${BASE_W * scale}px`;
+  wrapper.style.height = `${BASE_H * scale}px`;
+}
+
+fitCastle();
+window.addEventListener("resize", fitCastle);
+window.addEventListener("orientationchange", fitCastle);
+if (window.visualViewport) {
+  window.visualViewport.addEventListener("resize", fitCastle);
+}
+</script>
+
+</html>
